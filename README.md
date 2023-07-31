@@ -1,10 +1,18 @@
 # EVs-by-TEM
 
-'''
-fff
-'''
-link <- "/media/user/Lion/Documents/X-ray images selection/"
-require("readxl")
+To run this script the following packages are necessary: EBImage, RCurl, asbio, akima, KODAMA, and readxl 
+```
+library(EBImage)
+library(RCurl)
+library(asbio)
+library(akima)
+library(KODAMA)
+library(readxl)
+```
+
+In the next step, the file names of the images are retrieved.
+```
+link <- "/path/to/images/"
 setwd(link)
 
 files=list.files(link)
@@ -19,9 +27,10 @@ res=res[res[,"Patient.ID"] %in% res2[,"Patient.ID"],]
 rownames(res)=res[,1]
 files=intersect(files,rownames(res))
 res=res[files,]
+```
 
-
-
+Image analysis
+```
 size=list()
 kk=1
 for(kk in kk:length(files)){
@@ -274,4 +283,4 @@ colnames(decov.fit)=c("16 nm","19 nm","22 nm","25 nm","28 nm","31 nm","34 nm","3
 rownames(res2)=res2[,"Patient.ID"]
 res3=res2[rownames(decov.fit),]
 multi_analysis(decov.fit,as.factor(res3[,"Pathology"]))
-
+```
